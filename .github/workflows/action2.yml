@@ -56,7 +56,8 @@ jobs:
           git add NEWREADME.MD
           #git commit -m "${{ inputs.message }}"
           git commit -m "update from sub-module to self-update"
-          git push origin HEAD:${{ inputs.branch }}
+          #git push origin HEAD:${{ inputs.branch }}
+          git push origin HEAD:main
 
       # 5. Cleanup
       - name: Remove temp directory
