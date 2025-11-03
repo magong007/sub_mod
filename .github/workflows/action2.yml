@@ -42,6 +42,7 @@ jobs:
       - name: Update file
         run: |
           cd target-repo
+          ls -l
           echo "\nUpdated at: $(date)" >> ${{ inputs.file }}
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
