@@ -1,0 +1,54 @@
+
+# .github/workflows/update-files.yml    
+name: Update files in current branch
+
+permissions:
+  contents: write  # Needed for git push
+  
+on:
+  workflow_dispatch:  # Manual trigger
+  push:
+    branches:
+      - '*'           # (or any branch you want to act on)
+
+jobs:
+  update-files:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the current branch
+      - name: Checkout current branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0         # ensures full branch history
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      # Step 2: Make file changes
+      - name: Modify files
+        run: |
+          echo "Last updated at $(date)" > timestamp.txt
+          mkdir -p reports
+          pwd
+          ls -l
+          #echo "Automated report generated on $(date)" > reports/summary.txt
+          cp reports/action3.yml .github/workflows/action2.yml
+          cat .github/workflows/action2.yml
+          
+
+      # Step 3: Commit changes
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          #git add . 
+          #git add reports/summary.txt
+          git add .github/workflows/action2.yml
+          #git diff --quiet && echo "No changes to commit" || git commit -m "Auto-update files [skip ci]"
+          git commit -m "Auto-update files [skip ci]"
+          #curl -I https://github.com/magong007/self_update.git
+          git push
+
+      # Step 4: Push changes
+      #- name: Push changes
+        #run: |
+         # git push
