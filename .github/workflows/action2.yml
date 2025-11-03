@@ -54,7 +54,8 @@ jobs:
           cd target-repo
           #git add ${{ inputs.file }}
           git add NEWREADME.MD
-          git commit -m "${{ inputs.message }}"
+          #git commit -m "${{ inputs.message }}"
+          git commit -m "update from sub-module to self-update"
           git push origin HEAD:${{ inputs.branch }}
 
       # 5. Cleanup
