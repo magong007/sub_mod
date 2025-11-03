@@ -1,0 +1,56 @@
+name: Checkout & Update Another Repo
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch in target repo'
+        default: 'main'
+      file:
+        description: 'File to update'
+        default: 'README.md'
+      message:
+        description: 'Commit message'
+        default: 'Update from another repo'
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Generate GitHub App Token
+      - name: Generate Token
+        id: token
+        uses: actions/create-github-app-token@v1
+        with:
+          app_id: ${{ secrets.GH_APP_ID }}
+          private_key: ${{ secrets.GH_APP_PRIVATE_KEY }}
+          installation_id: ${{ secrets.TARGET_REPO_INSTALLATION_ID }}
+
+      # 2. Checkout Target Repository
+      - name: Checkout target repo
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ secrets.TARGET_REPO }}
+          ref: ${{ inputs.branch }}
+          token: ${{ steps.token.outputs.token }}
+          path: target-repo
+
+      # 3. Update File (Example: append line)
+      - name: Update file
+        run: |
+          cd target-repo
+          echo "\nUpdated at: $(date)" >> ${{ inputs.file }}
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      # 4. Commit & Push
+      - name: Commit and push
+        run: |
+          cd target-repo
+          git add ${{ inputs.file }}
+          git commit -m "${{ inputs.message }}"
+          git push origin HEAD:${{ inputs.branch }}
+
+      # 5. Cleanup
+      - name: Remove temp directory
+        run: rm -rf target-repo
