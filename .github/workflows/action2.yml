@@ -1,6 +1,9 @@
 name: Checkout & Update Another Repo
 
 on:
+  push:
+    branches:
+      - 'main'           # (or any branch you want to act on)
   workflow_dispatch:
     inputs:
       branch:
