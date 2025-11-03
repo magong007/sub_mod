@@ -43,7 +43,8 @@ jobs:
         run: |
           cd target-repo
           ls -l
-          echo "\nUpdated at: $(date)" >> ${{ inputs.file }}
+          #echo "\nUpdated at: $(date)" >> ${{ inputs.file }}
+          echo "updated" > NEWREADME.MD
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
@@ -51,7 +52,8 @@ jobs:
       - name: Commit and push
         run: |
           cd target-repo
-          git add ${{ inputs.file }}
+          #git add ${{ inputs.file }}
+          git add NEWREADME.MD
           git commit -m "${{ inputs.message }}"
           git push origin HEAD:${{ inputs.branch }}
 
