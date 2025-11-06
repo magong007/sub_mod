@@ -25,9 +25,9 @@ jobs:
         id: token
         uses: actions/create-github-app-token@v1
         with:
-          app_id: ${{ secrets.GH_APP_ID }}
-          private_key: ${{ secrets.GH_APP_PRIVATE_KEY }}
-          installation_id: ${{ secrets.TARGET_REPO_INSTALLATION_ID }}
+          app-id: ${{ secrets.GH_APP_ID }}
+          private-key: ${{ secrets.GH_APP_PRIVATE_KEY }}
+          #installation_id: ${{ secrets.TARGET_REPO_INSTALLATION_ID }}
 
       # 2. Checkout Target Repository
       - name: Checkout target repo
