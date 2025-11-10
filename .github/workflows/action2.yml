@@ -60,7 +60,7 @@ jobs:
           #git commit -m "${{ inputs.message }}"
           git commit -m "update from sub-module to self-update"
           #git push origin HEAD:${{ inputs.branch }}
-          git push origin HEAD:main
+          git push origin main
           #git push origin
 
       # 5. Cleanup
