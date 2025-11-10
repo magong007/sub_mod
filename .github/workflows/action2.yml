@@ -39,7 +39,19 @@ jobs:
           path: target-repo
 
       # 3. Update File (Example: append line)
-      - name: Update file
+      # - name: Update file
+      #   run: |
+      #     cd target-repo
+      #     ls -l
+      #     #echo "\nUpdated at: $(date)" >> ${{ inputs.file }}
+      #     echo "updated" > NEWREADME.MD
+      #     git config user.name "github-actions[bot]"
+      #     git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      # 4. Commit & Push
+      #- name: Commit and push
+      - env: 
+          GITHUB_TOKEN: ${{ steps.token.outputs.token}}
         run: |
           cd target-repo
           ls -l
@@ -48,13 +60,8 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-      # 4. Commit & Push
-      #- name: Commit and push
-      - env: 
-          GITHUB_TOKEN: ${{ steps.token.outputs.token}}
-        run: |
           git remote add origin https://github.com/magong007/remote2.git
-          cd target-repo
+          
           #git add ${{ inputs.file }}
           git add NEWREADME.MD
           #git commit -m "${{ inputs.message }}"
