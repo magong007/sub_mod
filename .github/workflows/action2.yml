@@ -53,13 +53,15 @@ jobs:
       - env: 
           GITHUB_TOKEN: ${{ steps.token.outputs.token}}
         run: |
+          git remote add origin https://github.com/magong007/remote2.git
           cd target-repo
           #git add ${{ inputs.file }}
           git add NEWREADME.MD
           #git commit -m "${{ inputs.message }}"
           git commit -m "update from sub-module to self-update"
           #git push origin HEAD:${{ inputs.branch }}
-          git push origin HEAD:main
+          #git push origin HEAD:main
+          git push origin
 
       # 5. Cleanup
       - name: Remove temp directory
