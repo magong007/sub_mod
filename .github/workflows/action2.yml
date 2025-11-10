@@ -55,6 +55,7 @@ jobs:
         run: |
           cd target-repo
           ls -l
+          git remote -v
           #echo "\nUpdated at: $(date)" >> ${{ inputs.file }}
           echo "updated" > NEWREADME.MD
           git config user.name "github-actions[bot]"
