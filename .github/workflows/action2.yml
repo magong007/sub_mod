@@ -1,4 +1,9 @@
-name: Checkout & Update Another Repo           
+name: Checkout & Update Another Repo     
+
+permissions:
+  pull-requests: write
+  issues: write
+  repository-projects: write
   
 on:
   push:
